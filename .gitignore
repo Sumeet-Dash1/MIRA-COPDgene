@@ -1,0 +1,63 @@
+# Ignore Python-related files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.ipynb_checkpoints/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+elastix
+copd_metadata.csv
+
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Ignore elastix output directories and temporary files
+elastix_output/
+transformix_output/
+result.*
+TransformParameters.*.txt
+
+# Ignore data files
+*.nii
+*.nii.gz
+*.mhd
+*.raw
+*.hdr
+*.img
+
+# Ignore model files
+*.h5
+*.pth
+*.pt
+*.ckpt
+
+# Ignore large datasets or user-specified data directories
+Data/
+datasets/
+training-data/
+validation-data/
+
+# Ignore environment files
+.env
+.venv/
+env/
+venv/
+pip-log.txt
+
+# Ignore build and dependency files
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Ignore Jupyter Notebook outputs (optional)
+*.nbconvert/
+*.html
