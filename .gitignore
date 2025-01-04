@@ -46,6 +46,7 @@ training-data/
 validation-data/
 data/
 processed/
+mask/
 
 # Ignore environment files
 .env
