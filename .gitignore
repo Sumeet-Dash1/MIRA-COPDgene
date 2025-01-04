@@ -44,6 +44,8 @@ Data/
 datasets/
 training-data/
 validation-data/
+data/
+processed/
 
 # Ignore environment files
 .env
