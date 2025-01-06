@@ -227,7 +227,7 @@ def analyze_inhale_exhale(inhale_image, exhale_image, set_name='Dataset'):
 
     return {"Inhale": inhale_stats, "Exhale": exhale_stats}
 
-def plot_slice(image):
+def plot_slice(image, slice_idx=-1):
     """
     Plot images with titles for 3D or 4D image arrays.
 
@@ -241,7 +241,12 @@ def plot_slice(image):
     """
 
     if image.ndim == 3:  # If 3D, plot the specified slice
-        slice_idx = image.shape[2] // 2
+        if slice_idx >= image.shape[2]:
+            raise ValueError("Invalid slice index.")
+        if slice_idx < 0:
+            slice_idx = image.shape[2] // 2
+        else:
+            slice_idx = slice_idx
         plt.imshow(image[:, :, slice_idx], cmap='gray')
         plt.title("Middle Slice")
         plt.axis('off')

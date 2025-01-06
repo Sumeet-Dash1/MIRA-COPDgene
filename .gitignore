@@ -5,6 +5,8 @@ __pycache__/
 *.pyd
 .Python
 *.ipynb_checkpoints/
+.vscode/
+*.vscode
 
 # Ignore system files
 .DS_Store
@@ -47,6 +49,7 @@ validation-data/
 data/
 processed/
 mask/
+data_4bit/
 
 # Ignore environment files
 .env

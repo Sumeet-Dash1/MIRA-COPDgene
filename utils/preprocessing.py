@@ -75,6 +75,25 @@ def convert_signed_4bit_to_hu(ct_image_4bit, max_abs_value = 1000):
 
     return ct_image_hu
 
+def convert_signed_4bit_to_unsigned_8bit(ct_image_4bit):
+    """
+    Converts a signed 4-bit CT image (range: [-8, 7]) to an unsigned 8-bit image (range: [0, 255]).
+    
+    Parameters:
+        ct_image_4bit (numpy.ndarray): The signed 4-bit CT image (range: [-8, 7]).
+    
+    Returns:
+        numpy.ndarray: The unsigned 8-bit image (range: [0, 255]).
+    """
+    # Ensure the input range is valid
+    if not np.all((ct_image_4bit >= -8) & (ct_image_4bit <= 7)):
+        raise ValueError("Input image values must be in the range [-8, 7].")
+    
+    # Scale signed 4-bit range [-8, 7] to unsigned 8-bit range [0, 255]
+    ct_image_8bit = ((ct_image_4bit + 8) / 15 * 255).astype(np.uint8)
+    
+    return ct_image_8bit
+
 def normalize_image(image, in_range=(-2000, 2000), mid_range=(-1000, 1000)):
     """
     Normalizes a CT image array.
@@ -130,8 +149,6 @@ def apply_clahe(image, kernel_size=None):
         out_range=(np.amin(image), np.amax(image))
     )
     return clahe_image
-
-
 
 def segment_kmeans(image_array, K=3):
     """
@@ -218,12 +235,22 @@ def remove_gantry(input_array, visualize=False):
         rescaled_array[segmented_array == i].mean() for i in range(3)  # Assuming 3 segments
     ]
 
-    # Identify the segment with the lowest mean
+    # Find the segment with the highest mean intensity
     highest_mean_segment = np.argmax(segment_means)
 
+    # Find the segment with the middle mean intensity
+    sorted_indices = np.argsort(segment_means)  # Indices of the sorted means
+    middle_mean_segment = sorted_indices[1]    # Middle mean segment
+
+    # Generate the gantry mask for the segment with the middle mean
+    lung_segment = segmented_array * (segmented_array == middle_mean_segment)
     # Generate the gantry mask for the segment with the lowest mean
     gantry_mask = segmented_array * (segmented_array == highest_mean_segment)
     gantry_mask_filled = fill_chest_cavity(gantry_mask)
+
+    # gantry_mask_eroded = np.zeros_like(gantry_mask_filled)
+    # for z in range(gantry_mask_filled.shape[2]):
+    #     gantry_mask_eroded[:,:,z] = cv2.erode(gantry_mask_filled.astype(np.uint8), np.ones((3, 3), np.uint8), iterations=1)
 
     # Calculate the minimum of the input array
     min_value = input_array.min()
@@ -231,6 +258,7 @@ def remove_gantry(input_array, visualize=False):
     # Remove the gantry: parts inside the mask are kept as input_array,
     # parts outside the mask are set to the minimum value
     gantry_removed_array = np.where(gantry_mask_filled, input_array, min_value)
+    lung_mask = np.where(gantry_mask_filled, lung_segment, 0)
 
     if visualize:
         mid_slice = input_array.shape[2] // 2  # Middle slice along z-axis
@@ -243,5 +271,5 @@ def remove_gantry(input_array, visualize=False):
         ax[2].set_title("Gantry Removed")
         plt.show()
 
-    return gantry_removed_array
+    return gantry_removed_array, lung_mask
 
