@@ -13,6 +13,8 @@ __pycache__/
 Thumbs.db
 elastix
 copd_metadata.csv
+weird_image/
+results/
 
 
 # Ignore logs and temporary files

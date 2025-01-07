@@ -273,3 +273,36 @@ def remove_gantry(input_array, visualize=False):
 
     return gantry_removed_array, lung_mask
 
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
+
+
+def flatten_peak_in_range(image, peak_range, target_range):
+    """
+    Flattens the non-dominant peak in a specified intensity range.
+
+    Parameters:
+        image (numpy.ndarray): Input grayscale image.
+        peak_range (tuple): The range of the non-dominant peak (min, max).
+        target_range (tuple): The target range to flatten the peak (min, max).
+
+    Returns:
+        numpy.ndarray: Image with the specified peak flattened to the target range.
+    """
+    # Extract the min and max of the input peak range
+    peak_min, peak_max = peak_range
+
+    # Extract the min and max of the target range
+    target_min, target_max = target_range
+
+    # Copy the image to avoid modifying the original
+    flattened_image = image.copy()
+
+    # Scale intensities within the peak range to the target range
+    mask = (flattened_image >= peak_min) & (flattened_image <= peak_max)
+    flattened_image[mask] = ((flattened_image[mask] - peak_min) / (peak_max - peak_min)) * (target_max - target_min) + target_min
+
+    return flattened_image
+
+

@@ -15,9 +15,9 @@ def parse_transformed_points(file_path):
 
     with open(file_path, 'r') as file:
         for line in file:
-            if "InputPoint" in line and "OutputPoint" in line:
-                input_point = line.split("InputPoint = [")[1].split("]")[0].split()
-                output_point = line.split("OutputPoint = [")[1].split("]")[0].split()
+            if "InputIndex" in line and "OutputIndexFixed" in line:
+                input_point = line.split("InputIndex = [")[1].split("]")[0].split()
+                output_point = line.split("OutputIndexFixed = [")[1].split("]")[0].split()
                 input_points.append([float(val) for val in input_point])
                 transformed_points.append([float(val) for val in output_point])
 

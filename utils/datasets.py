@@ -47,8 +47,8 @@ def read_raw(
     }
     direction_cosine = [
         "1 0 0 1",
-        "1 0 0 0 1 0 0 0 1",
-        "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
+        "1 0 0 0 1 0 0 0 -1",
+        "1 0 0 0 0 1 0 0 0 0 -1 0 0 0 0 1",
     ]
     dim = len(image_size)
     header = [

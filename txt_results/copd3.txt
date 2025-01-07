@@ -1,0 +1,2 @@
+Original T.R.E.: Mean - 12.29 mm, Std. Dev. - 6.39 mm 
+Registed T.R.E.: Mean - 4.28 mm, Std. Dev. - 3.14 mm
