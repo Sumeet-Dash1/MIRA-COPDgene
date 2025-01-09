@@ -55,4 +55,4 @@
 (DefaultPixelValue 0)
 (WriteResultImage "true")
 (ResultImagePixelType "float")
-(ResultImageFormat "mhd")
+(ResultImageFormat "nii.gz")

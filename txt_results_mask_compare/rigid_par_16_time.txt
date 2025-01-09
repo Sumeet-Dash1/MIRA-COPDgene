@@ -1,0 +1,6 @@
+Mask Name	Image: copd1	Image: copd2	Image: copd3	Image: copd4
+lung_mask	230.38 seconds	243.78 seconds	277.68 seconds	N/A
+lung_mask_thresholded	298.93 seconds	295.89 seconds	366.19 seconds	N/A
+lung_mask_combined	345.40 seconds	401.28 seconds	449.01 seconds	N/A
+lung_mask_with_trachea	432.19 seconds	446.00 seconds	387.69 seconds	N/A
+lung_mask_without_trachea	332.58 seconds	318.24 seconds	360.49 seconds	N/A

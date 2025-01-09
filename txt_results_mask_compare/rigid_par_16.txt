@@ -1,0 +1,6 @@
+Mask Name	Image: copd1	Image: copd2	Image: copd3	Image: copd4
+lung_mask	1.51 ± 1.11	4.01 ± 3.92	1.35 ± 1.09	N/A
+lung_mask_thresholded	1.52 ± 1.18	4.37 ± 4.53	1.37 ± 1.08	N/A
+lung_mask_combined	1.49 ± 1.07	4.19 ± 4.18	1.34 ± 1.09	N/A
+lung_mask_with_trachea	1.53 ± 1.22	3.59 ± 3.66	1.35 ± 1.06	N/A
+lung_mask_without_trachea	1.52 ± 1.19	3.66 ± 3.73	1.35 ± 1.08	N/A

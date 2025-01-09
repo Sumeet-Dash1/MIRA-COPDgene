@@ -17,7 +17,7 @@ def hu_data(volume, rescale_slope=1.0, rescale_intercept=-1024.0,
         target_range (tuple): Desired range for normalization (e.g., (-1, 1)).
 
     Returns:
-        numpy.ndarray: The preprocessed volume ready for the U-Net.
+        numpy.ndarray: The preprocessed volume.
     """
     # Ensure the volume is a NumPy array
     volume = np.asarray(volume)
@@ -272,11 +272,6 @@ def remove_gantry(input_array, visualize=False):
         plt.show()
 
     return gantry_removed_array, lung_mask
-
-import numpy as np
-import cv2
-import matplotlib.pyplot as plt
-
 
 def flatten_peak_in_range(image, peak_range, target_range):
     """

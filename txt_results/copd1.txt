@@ -1,2 +1,62 @@
 Original T.R.E.: Mean - 25.90 mm, Std. Dev. - 11.57 mm 
 Registed T.R.E.: Mean - 7.29 mm, Std. Dev. - 6.26 mm
+
+==================================================
+Experiment Run:  copd1_iBHCT_lung_mask.nii.gz and copd1_iBHCT.nii.gz and Par0016.multibsplines.lung.sliding_modified
+==================================================
+Original T.R.E.: Mean - 25.90 mm, Std. Dev. - 11.57 mm 
+Registed T.R.E.: Mean - 1.51 mm, Std. Dev. - 1.11 mm
+
+==================================================
+Experiment Run:  copd1_iBHCT_lung_mask.nii.gz and copd1_iBHCT.nii.gz and Par_modified.txt
+==================================================
+Original T.R.E.: Mean - 25.90 mm, Std. Dev. - 11.57 mm 
+Registed T.R.E.: Mean - 1.98 mm, Std. Dev. - 3.10 mm
+
+==================================================
+Experiment Run: without_mask: copd1_iBHCT.nii.gz and parameter/Par_modified.txt
+==================================================
+Original T.R.E.: Mean - 25.90 mm, Std. Dev. - 11.57 mm 
+Registed T.R.E.: Mean - 7.15 mm, Std. Dev. - 4.64 mm
+
+==================================================
+Experiment Run: with_mask: copd1_iBHCT_lung_mask_thresholded.nii.gz and copd1_iBHCT.nii.gz and parameter/Par_modified.txt
+==================================================
+Original T.R.E.: Mean - 25.90 mm, Std. Dev. - 11.57 mm 
+Registed T.R.E.: Mean - 2.20 mm, Std. Dev. - 3.05 mm
+
+==================================================
+Experiment Run: with_mask: copd1_iBHCT_lung_mask_thresholded.nii.gz and copd1_iBHCT.nii.gz and Par0016.multibsplines.lung.sliding_modified.txt
+==================================================
+Original T.R.E.: Mean - 25.90 mm, Std. Dev. - 11.57 mm 
+Registed T.R.E.: Mean - 1.61 mm, Std. Dev. - 1.27 mm
+==================================================
+Experiment Run: Rigid -> Deformable
+==================================================
+Original T.R.E.: Mean - 25.90 mm, Std. Dev. - 11.57 mm 
+Registed T.R.E.: Mean - 23.30 mm, Std. Dev. - 11.18 mm
+
+==================================================
+Experiment Run: with_mask: copd1_iBHCT_lung_mask_combined.nii.gz and copd1_iBHCT.nii.gz and Par0016.multibsplines.lung.sliding_modified.txt
+==================================================
+Original T.R.E.: Mean - 25.90 mm, Std. Dev. - 11.57 mm 
+Registed T.R.E.: Mean - 1.60 mm, Std. Dev. - 1.26 mm
+
+
+==================================================
+Experiment Run: with_mask, all param: copd1_iBHCT_lung_mask.nii.gz and copd1_iBHCT.nii.gz and Par0016.multibsplines.lung.sliding_modified.txt
+==================================================
+Original T.R.E.: Mean - 25.90 mm, Std. Dev. - 11.57 mm 
+Registed T.R.E.: Mean - 1.19 mm, Std. Dev. - 1.06 mm
+
+==================================================
+Experiment Run: with_mask, all param: copd1_iBHCT_lung_mask.nii.gz and copd1_iBHCT.nii.gz and Par_modified.txt
+==================================================
+Original T.R.E.: Mean - 25.90 mm, Std. Dev. - 11.57 mm 
+Registed T.R.E.: Mean - 1.96 mm, Std. Dev. - 3.07 mm
+
+==================================================
+Experiment Run: with_mask, all param: copd1_iBHCT_lung_mask_thresholded.nii.gz and copd1_iBHCT.nii.gz and Par0016.multibsplines.lung.sliding_modified.txt
+==================================================
+Original T.R.E.: Mean - 25.90 mm, Std. Dev. - 11.57 mm 
+Registed T.R.E.: Mean - 1.21 mm, Std. Dev. - 1.07 mm

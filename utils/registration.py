@@ -66,7 +66,12 @@ class ElastixTransformix:
             subprocess.call(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         # Process results
-        transformation_file = res_path / 'TransformParameters.0.txt' if len(parameters_paths) == 1 else res_path / 'TransformParameters.1.txt'
+        if len(parameters_paths) == 1:
+            transformation_file = res_path / 'TransformParameters.0.txt'
+        elif len(parameters_paths) == 2:
+            transformation_file = res_path / 'TransformParameters.1.txt'
+        else:
+            transformation_file = res_path / 'TransformParameters.2.txt'
 
         transformation_filename = f'TransformParameters_{mov_img_path.stem}.txt'
         transformation_file.rename(res_path / transformation_filename)
