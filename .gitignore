@@ -15,7 +15,8 @@ elastix
 copd_metadata.csv
 weird_image/
 results/
-
+data_test/
+mask_test/
 
 # Ignore logs and temporary files
 *.log

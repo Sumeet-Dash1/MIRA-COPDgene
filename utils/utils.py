@@ -1,6 +1,6 @@
 import numpy as np
 
-def parse_transformed_points(file_path):
+def parse_transformed_points(file_path, save_path=None):
     """
     Parse the input and output points from the Transformix points file.
 
@@ -18,7 +18,10 @@ def parse_transformed_points(file_path):
             if "InputIndex" in line and "OutputIndexFixed" in line:
                 input_point = line.split("InputIndex = [")[1].split("]")[0].split()
                 output_point = line.split("OutputIndexFixed = [")[1].split("]")[0].split()
-                input_points.append([float(val) for val in input_point])
-                transformed_points.append([float(val) for val in output_point])
+                input_points.append([int(val) for val in input_point])
+                transformed_points.append([int(val) for val in output_point])
+
+    if save_path is not None:
+        np.savetxt(save_path, transformed_points, delimiter='\t', fmt='%d')
 
     return np.array(input_points), np.array(transformed_points)
