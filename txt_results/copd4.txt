@@ -56,3 +56,8 @@ Experiment Run: with_mask, all param: copd4_iBHCT_lung_mask_thresholded.nii.gz a
 ==================================================
 Original T.R.E.: Mean - 30.90 mm, Std. Dev. - 13.49 mm 
 Registed T.R.E.: Mean - mask didnt run
+==================================================
+Experiment Run: without_mask: copd4_iBHCT.nii.gz and Par_modified.txt
+==================================================
+Original T.R.E.: Mean - 30.90 mm, Std. Dev. - 13.49 mm 
+Registed T.R.E.: Mean - 8.14 mm, Std. Dev. - 4.15 mm

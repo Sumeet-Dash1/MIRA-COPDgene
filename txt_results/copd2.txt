@@ -60,3 +60,9 @@ Experiment Run: with_mask, all param: copd2_iBHCT_lung_mask_thresholded.nii.gz a
 ==================================================
 Original T.R.E.: Mean - 21.77 mm, Std. Dev. - 6.46 mm 
 Registed T.R.E.: Mean - 2.04 mm, Std. Dev. - 2.25 mm
+
+==================================================
+Experiment Run: without_mask: copd2_iBHCT.nii.gz and Par_modified.txt
+==================================================
+Original T.R.E.: Mean - 21.77 mm, Std. Dev. - 6.46 mm 
+Registed T.R.E.: Mean - 12.36 mm, Std. Dev. - 7.09 mm
