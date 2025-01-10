@@ -199,12 +199,12 @@ def analyze_inhale_exhale(inhale_image, exhale_image, set_name='Dataset'):
     axes[0, 0].set_title("Histogram of Inhale Image (Excluding Zeros)")
     axes[0, 0].set_xlabel("Pixel Intensity")
     axes[0, 0].set_ylabel("Frequency")
-    axes[0, 0].axvline(
-        x=inhale_stats["99.99th Percentile"],
-        color='red', linestyle='--', linewidth=2,
-        label=f'99.99th Percentile = {inhale_stats["99.99th Percentile"]:.2f}'
-    )
-    axes[0, 0].legend()
+    # axes[0, 0].axvline(
+    #     x=inhale_stats["99.99th Percentile"],
+    #     color='red', linestyle='--', linewidth=2,
+    #     label=f'99.99th Percentile = {inhale_stats["99.99th Percentile"]:.2f}'
+    # )
+    # axes[0, 0].legend()
 
     # Histogram for exhale image
     # non_zero_exhale = exhale_image[exhale_image > 0]
@@ -213,12 +213,12 @@ def analyze_inhale_exhale(inhale_image, exhale_image, set_name='Dataset'):
     axes[0, 1].set_title("Histogram of Exhale Image (Excluding Zeros)")
     axes[0, 1].set_xlabel("Pixel Intensity")
     axes[0, 1].set_ylabel("Frequency")
-    axes[0, 1].axvline(
-        x=exhale_stats["99.99th Percentile"],
-        color='red', linestyle='--', linewidth=2,
-        label=f'99.99th Percentile = {exhale_stats["99.99th Percentile"]:.2f}'
-    )
-    axes[0, 1].legend()
+    # axes[0, 1].axvline(
+    #     x=exhale_stats["99.99th Percentile"],
+    #     color='red', linestyle='--', linewidth=2,
+    #     label=f'99.99th Percentile = {exhale_stats["99.99th Percentile"]:.2f}'
+    # )
+    # axes[0, 1].legend()
 
     # Slices of inhale image
     slice_index = inhale_image.shape[2] // 2  # Middle slice
