@@ -17,6 +17,7 @@ weird_image/
 results/
 data_test/
 mask_test/
+elastix_new/
 
 # Ignore logs and temporary files
 *.log

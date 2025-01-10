@@ -1,0 +1,10 @@
+Mask Name	Image: copd1	Image: copd2	Image: copd3	Image: copd4
+lung_mask	1.19 ± 1.06	2.16 ± 2.48	1.23 ± 1.13	N/A
+lung_mask_thresholded	1.21 ± 1.07	2.04 ± 2.25	1.23 ± 1.11	N/A
+lung_mask_with_trachea	1.24 ± 1.13	2.07 ± 2.42	1.27 ± 1.26	N/A
+
+| Mask Name               | Image: copd1   | Image: copd2   | Image: copd3   | Image: copd4   |
+|-------------------------|----------------|----------------|----------------|----------------|
+| lung_mask              | 1.19 ± 1.06    | 2.16 ± 2.48    | 1.23 ± 1.13    | N/A            |
+| lung_mask_thresholded  | 1.21 ± 1.07    | 2.04 ± 2.25    | 1.23 ± 1.11    | N/A            |
+| lung_mask_with_trachea | 1.24 ± 1.13    | 2.07 ± 2.42    | 1.27 ± 1.26    | N/A            |

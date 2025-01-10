@@ -1,0 +1,2 @@
+Mask Name	Image: copd1	Image: copd2	Image: copd3	Image: copd4
+no_mask	108.27 seconds	105.47 seconds	119.75 seconds	115.36 seconds
