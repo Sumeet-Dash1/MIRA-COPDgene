@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import nrrd
 from matplotlib.gridspec import GridSpec
 from lungmask import LMInferer
-from utils.preprocessing import hu_data, convert_signed_4bit_to_hu, convert_to_signed_4bit, remove_gantry
+from utils.preprocessing import hu_data, convert_signed_4bit_to_hu, convert_to_signed_4bit
 from scipy.ndimage import binary_fill_holes
 from skimage.segmentation import clear_border
 
