@@ -1,14 +1,17 @@
 import os
-from lungmask import LMInferer
 import SimpleITK as sitk
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2 as cv
 import nibabel as nib
+import matplotlib.pyplot as plt
+import nrrd
+from matplotlib.gridspec import GridSpec
+from lungmask import LMInferer
 from utils.preprocessing import hu_data, convert_signed_4bit_to_hu, convert_to_signed_4bit, remove_gantry
 from scipy.ndimage import binary_fill_holes
 from skimage.segmentation import clear_border
-import nrrd
+
 
 def apply_lungmask_binary(image, output_path=None, model_name=None, vis=False):
     """
@@ -16,15 +19,18 @@ def apply_lungmask_binary(image, output_path=None, model_name=None, vis=False):
     and converts the output into a binary mask (1: Lung, 0: Background).
 
     Parameters:
-        image_path (str): Path to the 3D CT image file (e.g., .nii or .nii.gz).
-        output_path (str, optional): Path to save the binary lung mask. If None, the mask is not saved.
-        model_name (str): The specific model to use ('R231' or 'R231CovidWeb'). If None, the default model is used.
-        plot (bool): Whether to plot the original image and the binary lung mask (default: False).
+        image (str or numpy.ndarray): Path to the 3D CT image file (e.g., .nii or .nii.gz),
+                                      or the 3D CT image as a numpy array.
+        output_path (str, optional): Path to save the binary lung mask (in NIfTI format).
+                                     If None, the mask is not saved.
+        model_name (str, optional): The specific model to use ('R231' or 'R231CovidWeb').
+                                    If None, the default 'R231' model is used.
+        vis (bool, optional): If True, plots the original image and the binary lung mask.
 
     Returns:
-        numpy.ndarray: Binary lung mask (3D array) with:
-                       - 1: Lung (left or right)
-                       - 0: Background
+        numpy.ndarray: Binary lung mask (3D array) where:
+                       - 1 indicates the lung region.
+                       - 0 indicates the background.
     """
     # Load the CT image using SimpleITK
 
@@ -60,39 +66,46 @@ def apply_lungmask_binary(image, output_path=None, model_name=None, vis=False):
     # Plot if requested
     if vis:
         slice_index = image.shape[2] // 2  # Middle slice
-        plt.figure(figsize=(12, 6))
-        
-        # Original Image
-        plt.subplot(1, 2, 1)
-        plt.imshow(image[:, :, slice_index], cmap='gray')
-        plt.title('Original Image')
-        plt.axis('off')
-        
-        # Binary Lung Mask
-        plt.subplot(1, 2, 2)
-        plt.imshow(lung_mask[:, :, slice_index], cmap='gray')
-        plt.title('Binary Lung Mask')
-        plt.axis('off')
-        
-        plt.tight_layout()
+        # Define figure and GridSpec layout
+        fig = plt.figure(figsize=(10, 5))  # Adjust figure size
+        gs = GridSpec(1, 2, figure=fig, wspace=0.01)  # 1 row, 2 columns, minimal spacing
+
+        # Original Image (Left)
+        ax1 = fig.add_subplot(gs[0, 0])
+        ax1.imshow(image[:, :, slice_index], cmap='gray')
+        ax1.axis('off')  # Remove axes
+
+        # Binary Lung Mask (Right)
+        ax2 = fig.add_subplot(gs[0, 1])
+        ax2.imshow(lung_mask[:, :, slice_index], cmap='gray')
+        ax2.axis('off')  # Remove axes
+
+        # Show the plot
         plt.show()
 
     return lung_mask
 
 def apply_lungmask_thresholded(image, output_path=None, vis=False, axis_3 = False, axis_2 = False):
     """
-    Applies the LungMask model (default U-Net R231) to segment lungs from a 3D CT image
+    Applies thresholding and morphological operations to a 3D CT image to segment lungs
     and converts the output into a binary mask (1: Lung, 0: Background).
 
     Parameters:
-        image_path (str): Path to the 3D CT image file (e.g., .nii or .nii.gz).
-        output_path (str, optional): Path to save the binary lung mask. If None, the mask is not saved.
-        plot (bool): Whether to plot the original image and the binary lung mask (default: False).
+        image (str or numpy.ndarray): Path to the 3D CT image file (e.g., .nii or .nii.gz),
+                                      or the 3D CT image as a numpy array.
+        output_path (str, optional): Path to save the binary lung mask (in NIfTI format).
+                                     If None, the mask is not saved.
+        vis (bool, optional): If True, plots the original image, intermediate steps,
+                              and the binary lung mask.
+        axis_3 (bool, optional): If True, applies morphological closing and hole filling along
+                                 the 3rd axis (x-axis).
+        axis_2 (bool, optional): If True, applies morphological closing and hole filling along
+                                 the 2nd axis (y-axis).
 
     Returns:
-        numpy.ndarray: Binary lung mask (3D array) with:
-                       - 1: Lung (left or right)
-                       - 0: Background
+        numpy.ndarray: Binary lung mask (3D array) where:
+                       - 1 indicates the lung region.
+                       - 0 indicates the background.
     """
 
     if isinstance(image, str):
@@ -133,37 +146,60 @@ def apply_lungmask_thresholded(image, output_path=None, vis=False, axis_3 = Fals
     # Plot if requested
     if vis:
         slice_index = image.shape[2] // 2  # Middle slice
-        plt.figure(figsize=(12, 6))
-        
-        # Original Image
-        plt.subplot(1, 2, 1)
-        plt.imshow(image[:, :, slice_index], cmap='gray')
-        plt.title('Original Image')
-        plt.axis('off')
-        
-        # Binary Lung Mask
-        plt.subplot(1, 2, 2)
-        plt.imshow(lung_mask[:, :, slice_index], cmap='gray')
-        plt.title('Binary Lung Mask')
-        plt.axis('off')
-        
-        plt.tight_layout()
+
+        # Define the figure and grid
+        fig = plt.figure(figsize=(10, 10))  # Adjust figure size
+        gs = GridSpec(2, 2, figure=fig, wspace=0.05, hspace=0.05)  # Reduce spacing
+
+        # Original Image (Top Left)
+        ax1 = fig.add_subplot(gs[0, 0])
+        ax1.imshow(image[:, :, slice_index], cmap='gray')
+        ax1.axis('off')
+
+        # Bit 4 HU Image (Top Right)
+        ax2 = fig.add_subplot(gs[0, 1])
+        ax2.imshow(bit_4_hu[:, :, slice_index], cmap='gray')
+        ax2.axis('off')
+
+        # Thresholded Image (Bottom Left)
+        ax3 = fig.add_subplot(gs[1, 0])
+        ax3.imshow(thresholded[:, :, slice_index], cmap='gray')
+        ax3.axis('off')
+
+        # Binary Lung Mask (Bottom Right)
+        ax4 = fig.add_subplot(gs[1, 1])
+        ax4.imshow(lung_mask[:, :, slice_index], cmap='gray')
+        ax4.axis('off')
+
+        # Show the plot
         plt.show()
 
     return lung_mask
 
 def convert_nrrd_to_nii_gz(nrrd_file, reference_nii_file, output_nii_file=None):
     """
-    Converts a mask from a .nrrd file to a .nii.gz file using affine information
-    from a reference .nii.gz file. Saves the result only if output_nii_file is provided.
+    Converts a 3D lung mask from a .nrrd file to a .nii.gz file, preserving the affine
+    information from a reference .nii.gz file. If the mask contains multiple components
+    (e.g., left lung, right lung, and trachea), separate masks are generated.
 
     Parameters:
-        nrrd_file (str): Path to the input .nrrd file.
-        reference_nii_file (str): Path to the reference .nii.gz file.
-        output_nii_file (str, optional): Path to save the output .nii.gz file. If None, does not save.
+        nrrd_file (str): Path to the input .nrrd file containing the lung mask.
+        reference_nii_file (str): Path to the reference .nii.gz file to extract affine
+                                  transformation information.
+        output_nii_file (str, optional): Path to save the output .nii.gz files. If provided,
+                                         saves:
+                                         - "mask_with_trachea.nii.gz"
+                                         - "mask_without_trachea.nii.gz"
+                                         If None, files are not saved.
 
     Returns:
-        nib.Nifti1Image: The NIfTI image object created from the .nrrd file.
+        tuple: A tuple containing two `nib.Nifti1Image` objects:
+               - mask_with_trachea: Mask including the trachea.
+               - mask_without_trachea: Mask excluding the trachea.
+
+    Notes:
+        - The mask is separated into three components: all regions, left lung, and right lung.
+        - The trachea is excluded in the `mask_without_trachea`.
     """
     # Load the .nrrd file
     mask_data, mask_header = nrrd.read(nrrd_file)

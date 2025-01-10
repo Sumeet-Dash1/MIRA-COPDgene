@@ -2,15 +2,22 @@ import numpy as np
 
 def target_registration_error(fixed_points, transformed_points, voxel_size):
     """
-    Calculate the target registration error between fixed points and transformed points.
+    Calculate the Target Registration Error (T.R.E.) between fixed points and transformed points.
 
     Parameters:
-        fixed_points (np.ndarray): Fixed image points (N x 3).
-        transformed_points (np.ndarray): Transformed moving image points (N x 3).
-        voxel_size (tuple): Voxel size of the image (e.g. [1, 1, 1]).
+        fixed_points (np.ndarray): Array of fixed image points with shape (N, 3),
+                                   where N is the number of points, and each point has 3 coordinates.
+        transformed_points (np.ndarray): Array of transformed moving image points with shape (N, 3).
+        voxel_size (tuple): The voxel size of the image in physical units (e.g., [1.0, 1.0, 1.0]).
 
     Returns:
-        float: The target registration error.
+        tuple: A tuple containing:
+            - float: Mean T.R.E. in physical units (e.g., millimeters).
+            - float: Standard deviation of T.R.E. in physical units.
+
+    Notes:
+        - T.R.E. is computed as the Euclidean distance between corresponding fixed and transformed points.
+        - The calculation accounts for voxel size to provide the error in physical units.
     """
     # Convert points from voxel units to physical units
     fixed_points_phys = fixed_points * np.array(voxel_size)

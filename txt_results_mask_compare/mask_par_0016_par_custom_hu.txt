@@ -1,0 +1,2 @@
+Mask Name	Image: copd1	Image: copd2	Image: copd3	Image: copd4
+lung_mask_thresholded	1.22 ± 1.03	2.17 ± 2.72	1.22 ± 1.11	N/A

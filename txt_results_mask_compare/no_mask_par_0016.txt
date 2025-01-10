@@ -1,0 +1,2 @@
+Mask Name	Image: copd1	Image: copd2	Image: copd3	Image: copd4
+no_mask	7.29 ± 6.26	11.87 ± 5.60	4.28 ± 3.14	N/A

@@ -5,15 +5,23 @@ import nibabel as nib
 
 def plot_images_nib(images, titles, cols, cmap='gray', fig_size=(15, 15), slice_idx=0):
     """
-    Plot images with titles for nibabel images.
+    Plot images from nibabel NIfTI files or objects with corresponding titles.
 
     Parameters:
-        images (list): List of images (nibabel.Nifti1Image or file paths) to plot.
+        images (list): List of images to plot. Each image can be either:
+                       - A nibabel.Nifti1Image object.
+                       - A string file path to a NIfTI file.
         titles (list): List of titles for each image.
         cols (int): Number of columns in the plot.
-        cmap (str): Colormap to use.
-        fig_size (tuple): Figure size.
-        slice_idx (int): Slice index to plot.
+        cmap (str, optional): Colormap to use for plotting (default: 'gray').
+        fig_size (tuple, optional): Size of the figure (default: (15, 15)).
+        slice_idx (int, optional): Slice index to plot (default: 0).
+
+    Raises:
+        ValueError: If an unsupported image dimension is encountered.
+
+    Returns:
+        None
     """
     # Determine the number of rows
     rows = len(images) // cols + (1 if len(images) % cols else 0)
@@ -49,15 +57,23 @@ def plot_images_nib(images, titles, cols, cmap='gray', fig_size=(15, 15), slice_
 
 def plot_images_sitk(images, titles, cols, cmap='gray', fig_size=(15, 15), slice_idx=0):
     """
-    Plot images with titles.
+    Plot images from SimpleITK images or file paths with corresponding titles.
 
     Parameters:
-        images (list): List of images (SimpleITK.Image or file paths) to plot.
+        images (list): List of images to plot. Each image can be either:
+                       - A SimpleITK.Image object.
+                       - A string file path to an image readable by SimpleITK.
         titles (list): List of titles for each image.
         cols (int): Number of columns in the plot.
-        cmap (str): Colormap to use.
-        fig_size (tuple): Figure size.
-        slice_idx (int): Slice index to plot.
+        cmap (str, optional): Colormap to use for plotting (default: 'gray').
+        fig_size (tuple, optional): Size of the figure (default: (15, 15)).
+        slice_idx (int, optional): Slice index to plot (default: 0).
+
+    Raises:
+        ValueError: If an unsupported image dimension is encountered.
+
+    Returns:
+        None
     """
     # Determine the number of rows
     rows = len(images) // cols + (1 if len(images) % cols else 0)
@@ -86,15 +102,21 @@ def plot_images_sitk(images, titles, cols, cmap='gray', fig_size=(15, 15), slice
 
 def plot_images(images, titles, cols=2, cmap='gray', fig_size=(15, 15), slice_idx=0):
     """
-    Plot images with titles for 3D or 4D image arrays.
+    Plot a list of 3D or 4D image arrays with titles.
 
     Parameters:
-        images (list): List of 3D or 4D image arrays (e.g., numpy arrays or image data).
+        images (list): List of 3D or 4D image arrays (numpy.ndarray).
         titles (list): List of titles for each image.
-        cols (int): Number of columns in the plot (default: 2).
-        cmap (str): Colormap to use for plotting (default: 'gray').
-        fig_size (tuple): Size of the figure (default: (15, 15)).
-        slice_idx (int): Slice index to plot (default: 0).
+        cols (int, optional): Number of columns in the plot (default: 2).
+        cmap (str, optional): Colormap to use for plotting (default: 'gray').
+        fig_size (tuple, optional): Size of the figure (default: (15, 15)).
+        slice_idx (int, optional): Slice index to plot (default: 0).
+
+    Raises:
+        ValueError: If the number of images and titles does not match or if unsupported dimensions are encountered.
+
+    Returns:
+        None
     """
     if len(images) != len(titles):
         raise ValueError("The number of images and titles must be the same.")
@@ -131,15 +153,17 @@ def plot_images(images, titles, cols=2, cmap='gray', fig_size=(15, 15), slice_id
 
 def analyze_inhale_exhale(inhale_image, exhale_image, set_name='Dataset'):
     """
-    Analyzes inhale and exhale images, computes statistics, and plots histograms and slices.
-    
+    Analyze inhale and exhale images, compute statistics, and plot histograms and slices.
+
     Parameters:
-        inhale_image (numpy.ndarray): 3D array of the inhale image.
-        exhale_image (numpy.ndarray): 3D array of the exhale image.
-        set_name (str): Name of the dataset (e.g., 'Train_Set', 'Validation_Set', or 'Test_Set').
-    
+        inhale_image (numpy.ndarray): 3D array representing the inhale image.
+        exhale_image (numpy.ndarray): 3D array representing the exhale image.
+        set_name (str, optional): Name of the dataset (default: 'Dataset').
+
     Returns:
-        dict: Statistics of the inhale and exhale images.
+        dict: Dictionary containing statistics for the inhale and exhale images with the following keys:
+              - "Inhale": Statistics for the inhale image.
+              - "Exhale": Statistics for the exhale image.
     """
     # Compute statistics for inhale image
     inhale_stats = {
@@ -229,15 +253,17 @@ def analyze_inhale_exhale(inhale_image, exhale_image, set_name='Dataset'):
 
 def plot_slice(image, slice_idx=-1):
     """
-    Plot images with titles for 3D or 4D image arrays.
+    Plot a single slice from a 3D image array.
 
     Parameters:
-        images (list): List of 3D or 4D image arrays (e.g., numpy arrays or image data).
-        titles (list): List of titles for each image.
-        cols (int): Number of columns in the plot (default: 2).
-        cmap (str): Colormap to use for plotting (default: 'gray').
-        fig_size (tuple): Size of the figure (default: (15, 15)).
-        slice_idx (int): Slice index to plot (default: 0).
+        image (numpy.ndarray): 3D array representing the image.
+        slice_idx (int, optional): Index of the slice to plot. If -1, the middle slice is plotted (default: -1).
+
+    Raises:
+        ValueError: If the slice index is invalid.
+
+    Returns:
+        None
     """
 
     if image.ndim == 3:  # If 3D, plot the specified slice
