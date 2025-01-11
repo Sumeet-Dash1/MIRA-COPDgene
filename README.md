@@ -56,6 +56,9 @@ The repository also includes scripts for processing, analyzing, and comparing th
 
 ## Directory Structure
 
+## Directory Structure
+
+```plaintext
 MIRA-COPDgene/
 ├── data/                      # Raw input data
 ├── data_test/                 # Test dataset
@@ -77,6 +80,7 @@ MIRA-COPDgene/
 ├── Preprocessing.ipynb        # Jupyter notebook for preprocessing
 ├── Registration.ipynb         # Jupyter notebook for registration
 ├── Test_Registration.ipynb    # Jupyter notebook for testing registration
+```
 
 ## Contributors
 - [Sumeet Dash](https://github.com/Sumeet-Dash1)
